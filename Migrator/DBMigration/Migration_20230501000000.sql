@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS migration_test_table (
+	no	INT NOT NULL AUTO_INCREMENT
+    , no_2 INT
+	, PRIMARY KEY(no)
+)
