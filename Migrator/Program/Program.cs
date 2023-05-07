@@ -23,7 +23,6 @@ namespace Migrator.Program
 
         private static IServiceProvider CreateServices()
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "DBMigration"); 
             string connectionString = "server=localhost;port=3306;database=testschema;user=root;password=1234";
 
             return new ServiceCollection()
@@ -31,7 +30,10 @@ namespace Migrator.Program
                 .ConfigureRunner(rb => rb
                     .AddMySql5()
                     .WithGlobalConnectionString(connectionString)
-                    .ScanIn(typeof(Program).Assembly).For.Migrations())
+                    .WithGlobalStripComments(false)
+                    .ScanIn(Assembly.GetExecutingAssembly())
+                        .For.Migrations()
+                        .For.EmbeddedResources())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
