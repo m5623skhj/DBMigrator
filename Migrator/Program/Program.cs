@@ -11,14 +11,12 @@ namespace Migrator.Program
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             var servicesProvider = CreateServices();
 
-            using (var scope = servicesProvider.CreateScope())
-            {
-                UpdateDatabase(scope.ServiceProvider);
-            }
+            using var scope = servicesProvider.CreateScope();
+            return UpdateDatabase(scope.ServiceProvider);
         }
 
         private static IServiceProvider CreateServices()
@@ -38,11 +36,20 @@ namespace Migrator.Program
                 .BuildServiceProvider(false);
         }
 
-        private static void UpdateDatabase(IServiceProvider serviceProvider)
+        private static int UpdateDatabase(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 
-            runner.MigrateUp();
+            try
+            {
+                runner.MigrateUp();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Migration failed : " + ex.Message);
+                return 1;
+            }
         }
     }
 }
