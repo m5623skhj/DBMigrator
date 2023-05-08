@@ -15,7 +15,8 @@
     <PackageReference Include="FluentMigrator.Runner.SQLite" Version="3.3.2" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
-	<EmbeddedResource Include="../Migrator/DBMigration/Migration_20230501000000.sql" />
+    <EmbeddedResource Include="../Migrator/DBMigration/Migration_20230501000000.sql" />
+    <EmbeddedResource Include="../Migrator/DBMigration/Migration_20230501000001.sql" />
   </ItemGroup>
 
 </Project>
