@@ -1,5 +1,8 @@
-CREATE TABLE IF NOT EXISTS migration_test_table_2 (
-	no_3 INT NOT NULL AUTO_INCREMENT
+IF NOT EXISTS 
+(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'migration_test_table_2')
+CREATE TABLE migration_test_table_2
+(
+	no_3 INT IDENTITY(1,1) PRIMARY KEY
     , no_4 INT
-	, PRIMARY KEY(no_3)
-)
+);
+

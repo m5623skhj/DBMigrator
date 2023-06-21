@@ -21,12 +21,12 @@ namespace Migrator.Program
 
         private static IServiceProvider CreateServices()
         {
-            string connectionString = "server=localhost;port=3306;database=testschema;user=root;password=1234";
+            string connectionString = "server=.;database=test;UID=my_test;password=1234";
 
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
-                    .AddMySql5()
+                    .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
                     .WithGlobalStripComments(false)
                     .ScanIn(Assembly.GetExecutingAssembly())
